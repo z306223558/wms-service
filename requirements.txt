@@ -25,3 +25,4 @@ markdown
 django-rest-auth
 django-redis
 drf-extensions
+Django-mysql
