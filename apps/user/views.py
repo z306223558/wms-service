@@ -15,9 +15,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.user.serializers import RegisterSerializer, LoginSerializer, \
+from user.serializers import RegisterSerializer, LoginSerializer, \
     UserDetailsSerializer, JWTSerializer, PasswordChangeSerializer, UserProfileSerializer
-from apps.user.models import User, Profile
+from user.models import User, Profile
 from utils.pagination import SmallResultsSetPagination
 
 

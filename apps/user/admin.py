@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from utils.export_excel import export_excel
 
-from apps.user.models import User, Profile
+from user.models import User, Profile
 
 
 class NotificationAdmin(admin.ModelAdmin):

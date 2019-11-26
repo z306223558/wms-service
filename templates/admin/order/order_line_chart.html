@@ -1,0 +1,47 @@
+
+{% load i18n admin_urls static admin_list humanize %}
+<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+
+<div id="{{ module.div_id }}" style="width: 100%;height: 400px;"></div>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('{{ module.div_id }}'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: ''
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+<style type="text/css">
+    .recent-user-ul li{
+        list-style-type: square;
+        padding: 0;
+        float: left;
+        width: 25%;
+        text-align: center;
+        margin-left: 2px;
+    }
+    .big {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .dim {
+        color: #d0dbe6;
+    }
+</style>

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import SetPasswordForm
-from apps.user.models import Profile
+from user.models import Profile
 
 from rest_framework import serializers, exceptions
 

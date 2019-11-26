@@ -1,0 +1,34 @@
+
+{% load i18n admin_urls static admin_list humanize %}
+<ul class="recent-user-ul">
+    <li>
+        <div class="big">0</div>
+        <div class="dim">今日新增</div>
+    </li>
+    <li>
+        <div class="big">0</div>
+        <div class="dim">登陆活跃</div>
+    </li>
+    <li>
+        <div class="big">0</div>
+        <div class="dim">查看</div>
+    </li>
+</ul>
+
+<style type="text/css">
+    .recent-user-ul li{
+        list-style-type: square;
+        padding: 0;
+        float: left;
+        width: 25%;
+        text-align: center;
+        margin-left: 2px;
+    }
+    .big {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .dim {
+        color: #d0dbe6;
+    }
+</style>
