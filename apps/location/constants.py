@@ -8,7 +8,7 @@ class StoreLocationType:
 
     CHOICES = [
         (RANDOM_LOCATION, '随机库位'),
-        (PRODUCT_LOCATION, '生成库位')
+        (PRODUCT_LOCATION, '生产库位')
     ]
 
 
@@ -22,7 +22,7 @@ class StoreLocationWarningType:
     CHOICES = [
         (NORMAL, '无'),
         (USE_RATE_LOW, '利用率低'),
-        (EXPIRE_WARN, '过期接近')
+        (EXPIRE_WARN, '过期接近'),
         (MIX_COUNT_HIGH, '种类过多')
     ]
 

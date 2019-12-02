@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
@@ -67,7 +66,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'mobile'
 
     class Meta:
-        verbose_name = '账号管理'
+        verbose_name = '用户管理'
         verbose_name_plural = '账号信息'
         abstract = True
 
@@ -115,7 +114,7 @@ class Profile(models.Model):
     birthday = models.CharField(verbose_name="出生年月日", max_length=100)
 
     class Meta:
-        verbose_name = '用户信息'
+        verbose_name = '个人信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):

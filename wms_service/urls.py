@@ -37,14 +37,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='docs/')),
-    path('jet/', include('jet.urls', 'jet')),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    # path('', RedirectView.as_view(url='docs/')),
+    # path('jet/', include('jet.urls', 'jet')),
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('user/', include('user.urls')),
     path('docs/',
          schema_view.with_ui('swagger', cache_timeout=None),
          name='schema-swagger-ui'),
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',namespace='rest_framework'))
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(

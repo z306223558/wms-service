@@ -9,8 +9,8 @@ from django.contrib.admin import AdminSite
 
 location: Callable[[Any], Union[bytes, str]] = lambda x: os.path.join(os.path.dirname(os.path.realpath(__file__)), x)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
-sys.path.insert(0, os.path.join(BASE_DIR, '../../apps'))
-sys.path.insert(0, os.path.join(BASE_DIR, '../../extra_apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, './apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, './extra_apps'))
 
 SECRET_KEY = '7@!37shu)x%2ivfv26kkecjsm#$hb5$o(yq9r-44v@%-s)c@ue'
 DEBUG = True
@@ -21,8 +21,11 @@ INTERNAL_IPS = ALLOWED_HOSTS
 
 # 功能模板加载
 DEFAULT_APPS = [
-    'jet.dashboard',
-    'jet',
+    # 'jet.dashboard',
+    # 'jet',
+    'simplepro',
+    'simpleui',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,9 +44,11 @@ OTHER_APPS = [
     'rest_framework',
     'django_filters',
     'debug_toolbar',
+    'django_mysql',
 ]
 PROJECT_APPS = [
     'user.apps.UserConfig',
+    'area.apps.StoreAreaConfig'
 ]
 INSTALLED_APPS = OTHER_APPS + DEFAULT_APPS + PROJECT_APPS
 SITE_ID = 1
@@ -123,8 +128,8 @@ DATABASES = {
         "USER": 'root',
         "PASSWORD": "new.123",
         "OPTIONS": {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+            'charset': 'utf8mb4'
+        },
     }
 }
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django_mysql.models import JSONField, Model
-from store_area.constants import StoreAreaType, StoreAreaStatus
+from area.constants import StoreAreaType, StoreAreaStatus
 from user.models import User
 
 
@@ -20,7 +20,7 @@ class StoreArea(Model):
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
 
     class Meta:
-        verbose_name = "库区"
+        verbose_name = "库区管理"
         ordering = ['-created_at', ]
 
     def __str__(self):
