@@ -48,7 +48,9 @@ OTHER_APPS = [
 ]
 PROJECT_APPS = [
     'user.apps.UserConfig',
-    'area.apps.StoreAreaConfig'
+    'area.apps.StoreAreaConfig',
+    'location.apps.StoreLocationConfig',
+    'material.apps.MaterialConfig',
 ]
 INSTALLED_APPS = OTHER_APPS + DEFAULT_APPS + PROJECT_APPS
 SITE_ID = 1
@@ -155,6 +157,7 @@ SESSION_CACHE_ALIAS = "default"
 AUTH_USER_MODEL = "user.User"
 AUTHENTICATION_BACKENDS = (
     'apps.user.auth_backend.MobileAuthBackend',
+    'apps.user.auth_backend.UsernameAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 AUTH_PASSWORD_VALIDATORS = [

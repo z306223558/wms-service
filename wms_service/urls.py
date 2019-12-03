@@ -18,8 +18,8 @@ api_description = """
 密码：`z12369874`
 
 ### 后台管理
-* [localhost测试](http://127.0.0.1:8000/admin)
-* [服务器](http://175.102.18.112:8000/admin)
+* [localhost测试](http://127.0.0.1:8000/)
+* [服务器](http://175.102.18.112:8000/)
 
 ### 名词释义
 
@@ -37,14 +37,17 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # path('', RedirectView.as_view(url='docs/')),
+    path('', RedirectView.as_view(url='docs/')),
     # path('jet/', include('jet.urls', 'jet')),
     # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('user/', include('user.urls')),
+    path('area/', include('area.urls')),
+    path('location/', include('location.urls')),
+    path('material/', include('material.urls')),
     path('docs/',
          schema_view.with_ui('swagger', cache_timeout=None),
          name='schema-swagger-ui'),
-    path('', admin.site.urls),
+    path('wms/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls',namespace='rest_framework'))
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(

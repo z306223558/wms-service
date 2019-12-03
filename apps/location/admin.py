@@ -10,9 +10,9 @@ class StoreLocationAdmin(admin.ModelAdmin):
     """
     课程后台管理页面功能定制
     """
-    list_display = ['area_name', 'area_code', 'get_area_type_display', 'status', 'creator', 'created_at']
-    list_display_links = ['area_code', ]
-    list_filter = ['area_name', 'area_code', 'creator__mobile', ]
+    list_display = ['location_name', 'location_code', 'location_type', 'width', 'height', 'length', 'line_number', 'row_number', 'layer_number', 'status', 'created_at']
+    list_display_links = ['location_code', ]
+    list_filter = ['location_name', 'location_code', 'creator__mobile', ]
     list_editable = ['status', ]
 
     def get_queryset(self, request):

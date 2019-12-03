@@ -1,8 +1,5 @@
 from django.db import models
-
-from location.models import StoreLocation
 from material.constants import MaterialQuality, OperateSource, MaterialStatus
-from user.models import User
 
 
 class Material(models.Model):
@@ -18,7 +15,7 @@ class Material(models.Model):
                                         verbose_name='物料分类')
 
     location = models.ManyToManyField('location.StoreLocation',
-                                      related_name='locations',
+                                      related_name='material_locations',
                                       through='material.MaterialLocationRecord',
                                       blank=True,
                                       verbose_name='客户')
@@ -39,7 +36,7 @@ class Material(models.Model):
     expired_time = models.DateTimeField(verbose_name="过期日期", default="", blank=True)
 
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
         verbose_name = "物料信息"
@@ -53,7 +50,7 @@ class MaterialCategory(models.Model):
 
     category_name = models.CharField(verbose_name="类别名称", max_length=100, default="")
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
         verbose_name = "物料类别"
@@ -65,15 +62,15 @@ class MaterialCategory(models.Model):
 
 class MaterialCategoryRecord(models.Model):
 
-    material = models.ForeignKey(Material, verbose_name="物料ID", related_name='materials', on_delete=models.CASCADE)
-    category = models.ForeignKey(MaterialCategory, verbose_name="物料类别ID", related_name="categories",
+    material = models.ForeignKey('Material', verbose_name="物料ID", on_delete=models.CASCADE)
+    category = models.ForeignKey('MaterialCategory', verbose_name="物料类别ID", related_name="categories",
                                  on_delete=models.CASCADE)
-    operator = models.ForeignKey(User, verbose_name="操作人", on_delete=models.SET_NULL,
-                                 related_name='material_category_actions')
+    operator = models.ForeignKey('user.User', verbose_name="操作人", on_delete=models.SET_NULL,
+                                 related_name='material_category_actions', null=True)
     operator_source = models.PositiveSmallIntegerField(verbose_name="操作终端", choices=OperateSource.CHOICES,
                                                        default=OperateSource.PC_WEBSITE, blank=True)
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
         verbose_name = "物料分类记录"
@@ -85,15 +82,15 @@ class MaterialCategoryRecord(models.Model):
 
 class MaterialLocationRecord(models.Model):
 
-    material = models.ForeignKey(Material, verbose_name="物料ID", related_name='materials', on_delete=models.CASCADE)
-    location = models.ForeignKey(StoreLocation, verbose_name="库位ID", related_name="locations",
+    material = models.ForeignKey('Material', verbose_name="物料ID", related_name='materials', on_delete=models.CASCADE)
+    location = models.ForeignKey('location.StoreLocation', verbose_name="库位ID", related_name="locations",
                                  on_delete=models.CASCADE)
-    operator = models.ForeignKey(User, verbose_name="操作人", on_delete=models.SET_NULL,
-                                 related_name='material_location_actions')
+    operator = models.ForeignKey('user.User', verbose_name="操作人", on_delete=models.SET_NULL,
+                                 related_name='material_location_actions', null=True)
     operator_source = models.PositiveSmallIntegerField(verbose_name="操作终端", choices=OperateSource.CHOICES,
-                                                       default=OperateSource.PC_WEBSITE, blank=True)
+                                                       default=OperateSource.PC_WEBSITE, blank=True, null=True)
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
         verbose_name = "物料入库记录"
