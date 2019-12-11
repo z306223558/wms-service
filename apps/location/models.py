@@ -1,5 +1,6 @@
 from django.db import models
 from django_mysql.models import ListCharField, Model, JSONField
+from libs.custom_models.json_field import JSONField
 
 from material.models import MaterialCategory
 from location.constants import StoreLocationType, StoreLocationWarningType, StoreLocationStatus
@@ -37,7 +38,7 @@ class StoreLocation(Model):
                                                    verbose_name="偏好物料类别",
                                                    blank=True
                                                    )
-    store_info = JSONField(verbose_name="库存信息")
+    store_info = JSONField(verbose_name="库存信息", blank=True, null=True, default={})
     store_count = models.IntegerField(verbose_name="已存物料总数", default=0, blank=True)
     category_count = models.IntegerField(verbose_name="已存物料类别数", default=0, blank=True)
     warning = models.PositiveSmallIntegerField(verbose_name="库位告警状态",
@@ -50,7 +51,7 @@ class StoreLocation(Model):
     operator = models.ForeignKey('user.User', verbose_name="负责人", on_delete=models.SET_NULL, related_name="location_operator",
                                  null=True, blank=True)
     note = models.TextField(verbose_name="备注", default="", max_length=500)
-    extra_info = JSONField(verbose_name="额外信息(JSON数据)", default="")
+    extra_info = JSONField(verbose_name="额外信息(JSON数据)", default={}, blank=True, null=True)
 
     batch_number = models.CharField(verbose_name="目前最早批次", default='', max_length=100)
     earliest_time = models.DateTimeField(verbose_name="最早入库时间", default='', blank=True, null=True)

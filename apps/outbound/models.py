@@ -15,7 +15,7 @@ class StoreArea(Model):
     operator = models.ForeignKey(User, verbose_name="操作人", on_delete=models.SET_NULL, related_name="area_operator",
                                  null=True, blank=True)
     note = models.TextField(verbose_name="备注", default="", max_length=500)
-    extra_info = JSONField(verbose_name="额外信息(JSON数据)", default="")
+    extra_info = models.TextField(verbose_name="额外信息(JSON数据)", default="")
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now_add=True, auto_now=True)
 

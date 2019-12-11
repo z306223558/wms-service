@@ -1,5 +1,6 @@
 from django.db import models
 from material.constants import MaterialQuality, OperateSource, MaterialStatus
+from django.forms import ModelForm, forms, ModelChoiceField
 
 
 class Material(models.Model):
@@ -8,8 +9,8 @@ class Material(models.Model):
     material_code = models.CharField(verbose_name="物料编号", max_length=100, default='')
     material_sn = models.CharField(verbose_name="物料SN码", max_length=100, default='')
     material_sku = models.CharField(verbose_name="物料SKU码", max_length=100, default='')
-    categories = models.ManyToManyField('MaterialCategory',
-                                        related_name='materials',
+    categories = models.ManyToManyField('material.MaterialCategory',
+                                        related_name='material_categories',
                                         through='material.MaterialCategoryRecord',
                                         blank=True,
                                         verbose_name='物料分类')
@@ -46,6 +47,12 @@ class Material(models.Model):
         return '{}-{}-{}-{}'.format(self.material_name, self.material_sn, self.material_number, self.get_status_display())
 
 
+class MaterialCategoryChoiceField(ModelChoiceField):
+
+    def label_from_instance(self, obj):
+        return "{}".format(obj.category_name)
+
+
 class MaterialCategory(models.Model):
 
     category_name = models.CharField(verbose_name="类别名称", max_length=100, default="")
@@ -58,6 +65,14 @@ class MaterialCategory(models.Model):
 
     def __str__(self):
         return "{}".format(self.category_name)
+
+
+class MaterialCategoryChoiceForm(ModelForm):
+
+    categories = MaterialCategoryChoiceField(queryset=MaterialCategory.objects.all(), label="物料分类")
+
+    class Meta:
+        models = Material
 
 
 class MaterialCategoryRecord(models.Model):
@@ -73,7 +88,7 @@ class MaterialCategoryRecord(models.Model):
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
-        verbose_name = "物料分类记录"
+        verbose_name = "物料分类"
         ordering = ('-created_at', )
 
     def __str__(self):
@@ -93,7 +108,7 @@ class MaterialLocationRecord(models.Model):
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
     class Meta:
-        verbose_name = "物料入库记录"
+        verbose_name = "物料所在库位"
         ordering = ('-created_at',)
 
     def __str__(self):

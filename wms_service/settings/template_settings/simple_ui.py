@@ -25,28 +25,36 @@ SIMPLEUI_CONFIG = {
             'url': '/wms/user/profile/'
         }, {
             'name': '权限管理',
-            'icon': 'fa fa-user',
+            'icon': 'fa fa-group',
             'url': '/wms/auth/group/'
         }]
     }, {
         'name': '仓库管理',
-        'icon': 'fa fa-file',
+        'icon': 'fa fa-warehouse',
         'models': [{
             'name': '库区管理',
-            'icon': 'far fa-surprise',
+            'icon': 'fa fa-warehouse',
             'url': '/wms/area/storearea/'
         }, {
             'name': '库位管理',
-            'icon': 'far fa-surprise',
+            'icon': 'fa fa-braille',
             'url': '/wms/location/storelocation/'
         }, {
             'name': '物料管理',
-            'icon': 'far fa-surprise',
+            'icon': 'fa fa-cube',
             'url': '/wms/material/material/'
         }, {
             'name': '物料分类',
-            'icon': 'far fa-surprise',
+            'icon': 'fa fa-cubes',
             'url': '/wms/material/materialcategory/'
+        }, {
+            'name': '分类添加物料',
+            'icon': 'fa fa-plus-square',
+            'url': '/wms/material/materialcategoryrecord/'
+        }, {
+            'name': '物料入库记录',
+            'icon': 'fa fa-table',
+            'url': '/wms/material/materiallocationrecord/'
         }]
     }, {
         'name': '入库管理',

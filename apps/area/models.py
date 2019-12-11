@@ -16,7 +16,7 @@ class StoreArea(Model):
                                  null=True, blank=True)
     note = models.TextField(verbose_name="备注", default="", max_length=500)
     active = models.BooleanField(verbose_name="是否启用", default=True, blank=True, null=True)
-    extra_info = JSONField(verbose_name="额外信息(JSON数据)", default="")
+    extra_info = models.TextField(verbose_name="额外信息(JSON数据)", default="")
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
