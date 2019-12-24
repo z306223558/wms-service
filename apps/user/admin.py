@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from utils.export_excel import export_excel
 
-from user.models import User, Profile
+from user.models import User, Profile, Department
 
 
 class NotificationAdmin(admin.ModelAdmin):
@@ -146,6 +146,14 @@ class ProfileAdmin(admin.ModelAdmin):
         return obj.user.mobile
 
     get_user_mobile.short_description = '手机号'
+
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'department_name', 'charge_user', 'created_at',)
+    list_related_fields = ('name',)
+    search_fields = ('name', 'department_name',)
 
 
 admin.site.register(User, UserAdmin)

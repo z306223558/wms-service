@@ -51,6 +51,11 @@ PROJECT_APPS = [
     'area.apps.StoreAreaConfig',
     'location.apps.StoreLocationConfig',
     'material.apps.MaterialConfig',
+    'inbound.apps.InboundConfig',
+    'outbound.apps.OutboundConfig',
+    'schedule.apps.ScheduleConfig',
+    'stocktaking.apps.StocktakingConfig',
+    'task.apps.TaskConfig',
 ]
 INSTALLED_APPS = OTHER_APPS + DEFAULT_APPS + PROJECT_APPS
 SITE_ID = 1

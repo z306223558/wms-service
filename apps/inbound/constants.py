@@ -1,29 +1,35 @@
 # coding=utf-8
 
 
-class StoreAreaType:
+class ImportantLevel:
 
-    BREAD_LINE = 1
-    BUCKET_LINE = 2
-    VIRTUAL_AREA = 3
+    LOWER = 1
+    NORMAL = 2
+    HIGHER = 3
 
     CHOICES = [
-        (BREAD_LINE, '面包线'),
-        (BUCKET_LINE, '桶装线'),
-        (VIRTUAL_AREA, '虚拟区')
+        (LOWER, '低优先级'),
+        (NORMAL, '一般'),
+        (HIGHER, '高优先级')
     ]
 
 
-class StoreAreaStatus:
+class OrderStatus:
 
-    NORMAL = 1
-    FORBIDDEN = 0
-    DELETED = -1
-    REPAIR = 2
+    AUDIT = 0
+    CONFIRM = 1
+    INBOUNDING = 2
+    FINISH = 3
+    REFUSED = 4
+    EXPIRED = 5
+    DELETED = 6
 
     CHOICES = [
-        (NORMAL, '正常'),
-        (FORBIDDEN, '停用'),
+        (AUDIT, '待审核'),
+        (CONFIRM, '审核通过'),
+        (INBOUNDING, '入库中'),
+        (FINISH, '完成'),
+        (REFUSED, '审核不通过'),
+        (EXPIRED, '已过期'),
         (DELETED, '已删除'),
-        (REPAIR, '检修中'),
     ]

@@ -1,17 +1,17 @@
 from django.contrib import admin
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
-from outbound.models import OutboundOrder
+from task.models import Task
 
 
-@admin.register(OutboundOrder)
-class OutboundOrderAdmin(admin.ModelAdmin):
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
     """
     入库单功能定制
     """
-    list_display = ['order_number', 'status_display', 'important_level_display', 'department', 'creator', 'created_at', ]
-    list_display_links = ['order_number', ]
-    list_filter = ['order_number', 'status', 'department', ]
+    list_display = ['task_number', 'order_number', 'status_display', 'important_level_display', 'material', 'location', 'operator', 'action', 'created_at',]
+    list_display_links = ['task_number', ]
+    list_filter = ['order_number', 'status', 'task_number', 'important_level', ]
     list_max_show_all = 20
     list_per_page = 20
 

@@ -4,7 +4,6 @@ from libs.custom_models.json_field import JSONField
 
 from material.models import MaterialCategory
 from location.constants import StoreLocationType, StoreLocationWarningType, StoreLocationStatus
-from user.models import User
 
 
 class StoreLocation(Model):

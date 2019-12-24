@@ -1,11 +1,11 @@
 from django.contrib import admin
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
-from outbound.models import OutboundOrder
+from schedule.models import ScheduleOrder
 
 
-@admin.register(OutboundOrder)
-class OutboundOrderAdmin(admin.ModelAdmin):
+@admin.register(ScheduleOrder)
+class ScheduleOrderAdmin(admin.ModelAdmin):
     """
     入库单功能定制
     """

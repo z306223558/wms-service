@@ -1,5 +1,8 @@
 from django.apps import AppConfig
 
 
-class StoreAreaConfig(AppConfig):
-    name = 'area'
+class InboundConfig(AppConfig):
+    name = 'inbound'
+
+    def ready(self):
+        import inbound.receivers

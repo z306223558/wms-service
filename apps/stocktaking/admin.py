@@ -1,11 +1,11 @@
 from django.contrib import admin
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
-from outbound.models import OutboundOrder
+from stocktaking.models import StocktakingOrder
 
 
-@admin.register(OutboundOrder)
-class OutboundOrderAdmin(admin.ModelAdmin):
+@admin.register(StocktakingOrder)
+class StocktakingOrderAdmin(admin.ModelAdmin):
     """
     入库单功能定制
     """

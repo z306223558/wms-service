@@ -3,6 +3,22 @@ from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import Group, GroupManager
+
+
+class Department(Group):
+
+    department_name = models.CharField(verbose_name="部门名称", max_length=200)
+    charge_user = models.ForeignKey('User',
+                                    verbose_name="部门负责人",
+                                    on_delete=models.SET_NULL,
+                                    blank=True,
+                                    null=True)
+    created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
+
+    class Meta:
+        verbose_name = "部门"
 
 
 class UserManager(BaseUserManager):
