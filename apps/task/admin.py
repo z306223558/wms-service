@@ -15,9 +15,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_max_show_all = 20
     list_per_page = 20
 
-    formfield_overrides = {
-        JSONField: {'widget': JsonEditorWidget}
-    }
+    filter_horizontal = ('relation_tasks',)
 
     def status_display(self, obj):
         return obj.get_status_display()

@@ -1,5 +1,5 @@
 from django.db import models
-from django_mysql.models import ListCharField, Model, JSONField
+from django_mysql.models import Model
 from libs.custom_models.json_field import JSONField
 
 from material.models import MaterialCategory
@@ -37,7 +37,7 @@ class StoreLocation(Model):
                                                    verbose_name="偏好物料类别",
                                                    blank=True
                                                    )
-    store_info = JSONField(verbose_name="库存信息", blank=True, null=True, default={})
+    store_info = JSONField(verbose_name="库存信息", blank=True, null=True, default=dict)
     store_count = models.IntegerField(verbose_name="已存物料总数", default=0, blank=True)
     category_count = models.IntegerField(verbose_name="已存物料类别数", default=0, blank=True)
     warning = models.PositiveSmallIntegerField(verbose_name="库位告警状态",

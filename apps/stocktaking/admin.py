@@ -1,4 +1,8 @@
+import json
+
 from django.contrib import admin
+
+from inbound.constants import InboundInfoSchema
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
 from stocktaking.models import StocktakingOrder
@@ -16,7 +20,8 @@ class StocktakingOrderAdmin(admin.ModelAdmin):
     list_per_page = 20
 
     formfield_overrides = {
-        JSONField: {'widget': JsonEditorWidget}
+        JSONField: {'widget': JsonEditorWidget(attrs={"source": 'Inbound',
+                                                      "schema": json.dumps(InboundInfoSchema.SCHEMA)})}
     }
 
     def status_display(self, obj):

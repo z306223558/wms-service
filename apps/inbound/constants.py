@@ -33,3 +33,70 @@ class OrderStatus:
         (EXPIRED, '已过期'),
         (DELETED, '已删除'),
     ]
+
+
+class InboundInfoSchema:
+
+    SCHEMA = {
+        'title': '出库单信息',
+        'type': 'object',
+        'options': {'collapsed': True},
+        'properties': {
+            'task_list': {
+                'type': 'array',
+                'title': '任务列表',
+                'uniqueItems': False,
+                'format': 'table',
+                'items': {
+                    'type': 'object',
+                    'title': '任务信息',
+                    'properties': {
+                        'material': {
+                            'type': 'object',
+                            'title': '物料信息',
+                            'properties': {
+                                "material_id": {
+                                    'type': 'integer',
+                                    'title': '物料ID'
+                                },
+                                "material_number": {
+                                    'type': 'string',
+                                    'title': '物料编号'
+                                },
+                                "material_name": {
+                                    'type': 'string',
+                                    'title': '物料名'
+                                },
+                                "material_ser_number": {
+                                    "type": "string",
+                                    "title": "物料批次"
+                                },
+                                "count": {
+                                    'type': 'integer',
+                                    'title': '物料数量'
+                                }
+                            }
+                        },
+                        'location': {
+                            'type': 'object',
+                            'title': '库位信息',
+                            'properties': {
+                                "location_id": {
+                                    'type': 'integer',
+                                    'title': '库位ID'
+                                },
+                                "location_number": {
+                                    'type': 'string',
+                                    'title': '库位编号'
+                                },
+                                "action": {
+                                    'type': 'integer',
+                                    'title': '出入库'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }

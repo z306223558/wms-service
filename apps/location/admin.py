@@ -4,6 +4,7 @@ from django.utils.html import format_html
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
 from location.models import StoreLocation
+from location.constants import StoreLocationMaterialsSchema
 
 
 @admin.register(StoreLocation)
@@ -18,15 +19,10 @@ class StoreLocationAdmin(admin.ModelAdmin):
     list_max_show_all = 20
     list_per_page = 20
     formfield_overrides = {
-        JSONField: {'widget': JsonEditorWidget}
+        JSONField: {'widget': JsonEditorWidget(attrs={"source": 'location',
+                                                      "schema": json.dumps(StoreLocationMaterialsSchema.SCHEMA)})}
     }
     filter_horizontal = ('preference_categories', )
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser or request.user.is_staff:
-            return qs
-        return qs.filter(creator=request.user)
 
     class Media:
         from django.conf import settings

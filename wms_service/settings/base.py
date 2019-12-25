@@ -49,9 +49,10 @@ OTHER_APPS = [
 PROJECT_APPS = [
     'user.apps.UserConfig',
     'area.apps.StoreAreaConfig',
+    'inbound.apps.InboundConfig',
     'location.apps.StoreLocationConfig',
     'material.apps.MaterialConfig',
-    'inbound.apps.InboundConfig',
+    # 'inbound.apps.InboundConfig',
     'outbound.apps.OutboundConfig',
     'schedule.apps.ScheduleConfig',
     'stocktaking.apps.StocktakingConfig',

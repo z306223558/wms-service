@@ -1,8 +1,8 @@
 import datetime
 
 from django.db import models
-from django_mysql.models import JSONField, Model
-
+from django_mysql.models import Model
+from libs.custom_models.json_field import JSONField
 from inbound.constants import ImportantLevel, OrderStatus
 from task.constants import TaskType
 from inbound.utils import FunctionUtils
@@ -15,6 +15,9 @@ class OutboundOrder(Model):
                                               choices=OrderStatus.CHOICES)
     important_level = models.PositiveSmallIntegerField(verbose_name="优先级", default=ImportantLevel.NORMAL,
                                                        choices=ImportantLevel.CHOICES)
+
+    order_info = JSONField(verbose_name="订单信息", default=dict)
+
     expired_date = models.DateTimeField(verbose_name="过期时间", blank=True, null=True)
     creator = models.ForeignKey('user.User', verbose_name="创建人", on_delete=models.SET_NULL,
                                 related_name="outbound_order_creator", null=True, blank=True)
@@ -26,7 +29,7 @@ class OutboundOrder(Model):
                                    verbose_name="出库部门",
                                    related_name='department_outbound_orders')
     note = models.TextField(verbose_name="备注", default="", max_length=500)
-    order_info = JSONField(verbose_name="订单信息", default="")
+
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 

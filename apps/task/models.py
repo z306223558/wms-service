@@ -1,13 +1,11 @@
-import datetime
-
 from django.db import models
 from django_mysql.models import Model
-
 from inbound.constants import ImportantLevel
 from task.constants import TaskType, TaskStatus, TaskActions
 
 
 class Task(Model):
+
     task_number = models.CharField(verbose_name="任务编号", max_length=100)
     order_number = models.CharField(verbose_name="绑定单号", unique=True, max_length=40)
     status = models.PositiveSmallIntegerField(verbose_name="任务状态", default=TaskStatus.CONFIRM,

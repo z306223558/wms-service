@@ -1,9 +1,14 @@
 from django.contrib import admin
 import json
 from django.utils.html import format_html
+
+from inbound.utils import FunctionUtils
 from libs.custom_models.json_field import JSONField
 from libs.custom_widgets.json_widget import JsonEditorWidget
 from inbound.models import InboundOrder
+from task.constants import TaskType
+from inbound.constants import InboundInfoSchema
+from location.constants import StoreLocationMaterialsSchema
 
 
 @admin.register(InboundOrder)
@@ -18,8 +23,15 @@ class InboundOrderAdmin(admin.ModelAdmin):
     list_per_page = 20
 
     formfield_overrides = {
-        JSONField: {'widget': JsonEditorWidget}
+        JSONField: {'widget': JsonEditorWidget(attrs={"source": 'Inbound',
+                                                      "schema": json.dumps(InboundInfoSchema.SCHEMA)})}
     }
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(InboundOrderAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == 'order_number':
+            field.initial = FunctionUtils().generate_order_number(TaskType.INBOUND)
+        return field
 
     def status_display(self, obj):
         return obj.get_status_display()

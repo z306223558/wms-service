@@ -1,8 +1,9 @@
 from django.db import models
-from django_mysql.models import JSONField, Model
+from django_mysql.models import Model
 from inbound.constants import OrderStatus, ImportantLevel
-from task.constants import TaskStatus, TaskType, TaskActions
+from task.constants import TaskType
 from user.models import User
+from libs.custom_models.json_field import JSONField
 import datetime
 from inbound.utils import FunctionUtils
 
@@ -13,18 +14,19 @@ class InboundOrder(Model):
                                               choices=OrderStatus.CHOICES)
     important_level = models.PositiveSmallIntegerField(verbose_name="优先级", default=ImportantLevel.NORMAL,
                                                        choices=ImportantLevel.CHOICES)
+    department = models.ForeignKey('user.Department', on_delete=models.SET_NULL,
+                                   null=True, blank=True,
+                                   verbose_name="入库部门",
+                                   related_name='department_inbound_orders')
+    order_info = JSONField(verbose_name="订单信息", default=dict)
     expired_date = models.DateTimeField(verbose_name="过期时间", blank=True, null=True)
     creator = models.ForeignKey(User, verbose_name="创建人", on_delete=models.SET_NULL,
                                 related_name="inbound_order_creator", null=True, blank=True)
     operator = models.ForeignKey(User, verbose_name="操作人", on_delete=models.SET_NULL,
                                  related_name="inbound_order_operator",
                                  null=True, blank=True)
-    department = models.ForeignKey('user.Department', on_delete=models.SET_NULL,
-                                   null=True, blank=True,
-                                   verbose_name="入库部门",
-                                   related_name='department_inbound_orders')
+
     note = models.TextField(verbose_name="备注", default="", max_length=500)
-    order_info = JSONField(verbose_name="订单信息", default="")
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
