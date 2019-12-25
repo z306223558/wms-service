@@ -1,0 +1,104 @@
+<script type="text/javascript">
+    var option1 = {
+    title: {
+        text: ''
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data:['入库单','出库单','盘点单','移库单','调度任务']
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['12-20','12-21','12-22','12-23','12-24','12-25','12-26']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'移库单',
+            type:'line',
+            stack: '增量',
+            areaStyle: {},
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'出库单',
+            type:'line',
+            stack: '增量',
+            areaStyle: {},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'盘点单',
+            type:'line',
+            stack: '增量',
+            areaStyle: {},
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'入库单',
+            type:'line',
+            stack: '增量',
+            areaStyle: {normal: {}},
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'调度任务',
+            type:'line',
+            stack: '增量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
+            },
+            areaStyle: {normal: {}},
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+</script>
+<div class="card">
+    <div class="title">仓库信息统计图</div>
+    <div class="body">
+        <!--
+            图表类型与配置完全遵循echarts4.x 具体效果请看echarts的文档，simplepro只是做了个基于dom的封装，原生的写法在vue中无法渲染，会出现页面空白。
+            如果想动态改变数据，可以把option交由最外层的vue实例管理
+            把本页定义的option1先删除
+            然后定义在app中：
+
+            app.option1={};
+            ajax(function(data){
+                app.option1=data;
+            });
+
+         -->
+        <echarts :option="option1" style="width: 100%;height: 300px"></echarts>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="charts">
+    <div class="col">
+        <div class="wrap">
+            <div class="title">
+                入库单新增
+                <span class="date"
+                      style="background: rgb(246, 255, 237);border-color: rgb(183, 235, 143);color:rgb(82, 196, 26);">日</span>
+            </div>
+            <div class="body">
+                <div class="data">234</div>
+                <div>日同比 12.5% 周同比 5%</div>
+            </div>
+            <div class="bottom">总单量 61,410 单</div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="wrap">
+            <div class="title">
+                出库单新增
+                <span class="date"
+                      style="background: rgb(230, 247, 255);border-color: rgb(145, 213, 255);color: rgb(24, 144, 255)">日</span>
+            </div>
+            <div class="body">
+                <div class="data">567</div>
+                <div>
+                    <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
+                </div>
+            </div>
+            <div class="bottom">总单量 43,731 单</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="wrap">
+            <div class="title">
+                物料新增
+                <span class="date"
+                      style="background: rgb(255, 241, 240);border-color: rgb(255, 163, 158);color: rgb(245, 34, 45);">周</span>
+            </div>
+            <div class="body">
+                <div class="data">12</div>
+            </div>
+            <div class="bottom">转化率60%</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="wrap">
+            <div class="title">
+                待调度任务
+                <el-tooltip class="item" effect="dark" content="待调度任务" placement="top-start">
+                    <el-link style="position: absolute;right: 10px" icon="el-icon-question"></el-link>
+                </el-tooltip>
+            </div>
+            <div class="body">
+                <div class="data">12,306</div>
+
+            </div>
+            <div class="bottom">总任务数 2,310,800 </div>
+        </div>
+    </div>
+</div>
