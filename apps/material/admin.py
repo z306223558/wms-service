@@ -53,12 +53,6 @@ class MaterialAdmin(admin.ModelAdmin):
 
     inlines = [MaterialCategoryInline, MaterialLocationInline, ]
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser or request.user.is_staff:
-            return qs
-        return qs.filter(creator=request.user)
-
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
         for instance in instances:
@@ -68,6 +62,70 @@ class MaterialAdmin(admin.ModelAdmin):
         return super(MaterialAdmin, self).save_formset(request, form, formset, change)
 
 
-admin.site.register(MaterialCategory)
-admin.site.register(MaterialCategoryRecord)
-admin.site.register(MaterialLocationRecord)
+@admin.register(MaterialCategory)
+class MaterialCategoryAdmin(admin.ModelAdmin):
+    """
+    物料管理页面功能定制
+    """
+    list_display = ['category_name', 'category_code', 'import_level', 'creator', 'created_at', ]
+    list_display_links = ['category_name', ]
+    search_fields = ('category_name', 'category_code',)
+    list_filter = ['category_name', 'import_level', ]
+    date_hierarchy = 'created_at'
+    empty_value_display = 'N/A'
+    show_full_result_count = False
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.pk:
+                instance.creator = request.user
+            instance.save()
+        return super(MaterialCategoryAdmin, self).save_formset(request, form, formset, change)
+
+
+@admin.register(MaterialCategoryRecord)
+class MaterialCategoryRecordAdmin(admin.ModelAdmin):
+    """
+    物料管理页面功能定制
+    """
+    list_display = ['id', 'material', 'category', 'operator', 'operator_source', 'created_at', ]
+    list_display_links = ['id', ]
+    search_fields = ('material__material_name', 'category__category_name',)
+    list_select_related = ['material', 'category', ]
+    list_filter = ['material', 'category', ]
+    date_hierarchy = 'created_at'
+    empty_value_display = 'N/A'
+    show_full_result_count = False
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.pk:
+                instance.creator = request.user
+            instance.save()
+        return super(MaterialCategoryRecordAdmin, self).save_formset(request, form, formset, change)
+
+
+@admin.register(MaterialLocationRecord)
+class MaterialLocationRecordAdmin(admin.ModelAdmin):
+    """
+    物料管理页面功能定制
+    """
+    list_display = ['id', 'material', 'location', 'operator', 'operator_source', 'created_at', ]
+    list_display_links = ['id', ]
+    search_fields = ('material__material_name', 'location__location_name',)
+    list_filter = ['material', 'location', ]
+    list_select_related = ['material', 'location', ]
+    date_hierarchy = 'created_at'
+    empty_value_display = 'N/A'
+    show_full_result_count = False
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not instance.pk:
+                instance.creator = request.user
+            instance.save()
+        return super(MaterialLocationRecordAdmin, self).save_formset(request, form, formset, change)
+

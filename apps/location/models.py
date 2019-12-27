@@ -49,10 +49,10 @@ class StoreLocation(Model):
                                 null=True)
     operator = models.ForeignKey('user.User', verbose_name="负责人", on_delete=models.SET_NULL, related_name="location_operator",
                                  null=True, blank=True)
-    note = models.TextField(verbose_name="备注", default="", max_length=500)
+    note = models.TextField(verbose_name="备注", default="", max_length=500,  blank=True, null=True)
     extra_info = JSONField(verbose_name="额外信息(JSON数据)", default={}, blank=True, null=True)
 
-    batch_number = models.CharField(verbose_name="目前最早批次", default='', max_length=100)
+    batch_number = models.CharField(verbose_name="目前最早批次", default='', max_length=100,  blank=True, null=True)
     earliest_time = models.DateTimeField(verbose_name="最早入库时间", default='', blank=True, null=True)
 
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)

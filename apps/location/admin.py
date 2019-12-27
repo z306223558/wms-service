@@ -36,5 +36,4 @@ class StoreLocationAdmin(admin.ModelAdmin):
         js = (static_url + 'js/jsoneditor/jsoneditor.min.js', )
 
     def save_model(self, request, obj, form, change):
-        print(form)
         super().save_model(request, obj, form, change)

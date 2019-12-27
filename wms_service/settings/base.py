@@ -126,36 +126,36 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'wms_service.wsgi.application'
 
-# 数据库配置
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "wms_service",
-        "HOST": "127.0.0.1",
-        "PORT": 3306,
-        "USER": 'root',
-        "PASSWORD": "new.123",
-        "OPTIONS": {
-            'charset': 'utf8mb4'
-        },
-    }
-}
-
-# 缓存配置：目前使用redis缓存
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": "",
-        },
-    }
-}
-REST_FRAMEWORK_EXTENSIONS = {
-    # 过期时间  单位是秒
-    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 60 * 24
-}
+# # 数据库配置
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': "wms_service",
+#         "HOST": "127.0.0.1",
+#         "PORT": 3306,
+#         "USER": 'root',
+#         "PASSWORD": "new.123",
+#         "OPTIONS": {
+#             'charset': 'utf8mb4'
+#         },
+#     }
+# }
+#
+# # 缓存配置：目前使用redis缓存
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#             "PASSWORD": "",
+#         },
+#     }
+# }
+# REST_FRAMEWORK_EXTENSIONS = {
+#     # 过期时间  单位是秒
+#     'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 60 * 24
+# }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 

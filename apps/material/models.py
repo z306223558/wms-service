@@ -1,10 +1,11 @@
 from django.db import models
+
+from inbound.constants import ImportantLevel
 from material.constants import MaterialQuality, OperateSource, MaterialStatus
 from django.forms import ModelForm, forms, ModelChoiceField
 
 
 class Material(models.Model):
-
     material_name = models.CharField(verbose_name="物料名称", max_length=100, default="默认物料")
     material_code = models.CharField(verbose_name="物料编号", max_length=100, default='')
     material_sn = models.CharField(verbose_name="物料SN码", max_length=100, default='')
@@ -44,7 +45,8 @@ class Material(models.Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return '{}-{}-{}-{}'.format(self.material_name, self.material_sn, self.material_number, self.get_status_display())
+        return '{}-{}-{}-{}'.format(self.material_name, self.material_sn, self.material_number,
+                                    self.get_status_display())
 
 
 class MaterialCategoryChoiceField(ModelChoiceField):
@@ -54,8 +56,13 @@ class MaterialCategoryChoiceField(ModelChoiceField):
 
 
 class MaterialCategory(models.Model):
-
     category_name = models.CharField(verbose_name="类别名称", max_length=100, default="")
+    category_code = models.CharField(verbose_name="类别编码", max_length=100, default="")
+    import_level = models.PositiveSmallIntegerField(verbose_name="优先级", default=ImportantLevel.NORMAL,
+                                                    choices=ImportantLevel.CHOICES)
+    creator = models.ForeignKey('user.User', verbose_name="创建人", on_delete=models.SET_NULL,
+                                related_name="material_cate_creator",
+                                null=True, blank=True)
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
@@ -68,7 +75,6 @@ class MaterialCategory(models.Model):
 
 
 class MaterialCategoryChoiceForm(ModelForm):
-
     categories = MaterialCategoryChoiceField(queryset=MaterialCategory.objects.all(), label="物料分类")
 
     class Meta:
@@ -76,7 +82,6 @@ class MaterialCategoryChoiceForm(ModelForm):
 
 
 class MaterialCategoryRecord(models.Model):
-
     material = models.ForeignKey('Material', verbose_name="物料ID", on_delete=models.CASCADE)
     category = models.ForeignKey('MaterialCategory', verbose_name="物料类别ID", related_name="categories",
                                  on_delete=models.CASCADE)
@@ -89,14 +94,13 @@ class MaterialCategoryRecord(models.Model):
 
     class Meta:
         verbose_name = "物料分类"
-        ordering = ('-created_at', )
+        ordering = ('-created_at',)
 
     def __str__(self):
         return '{}-{}'.format(self.material.material_name, self.category.category_name)
 
 
 class MaterialLocationRecord(models.Model):
-
     material = models.ForeignKey('Material', verbose_name="物料ID", related_name='materials', on_delete=models.CASCADE)
     location = models.ForeignKey('location.StoreLocation', verbose_name="库位ID", related_name="locations",
                                  on_delete=models.CASCADE)

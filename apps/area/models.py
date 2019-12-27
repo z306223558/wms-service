@@ -1,5 +1,5 @@
 from django.db import models
-from django_mysql.models import JSONField, Model
+from django_mysql.models import Model
 from area.constants import StoreAreaType, StoreAreaStatus
 
 
@@ -14,9 +14,9 @@ class StoreArea(Model):
                                 null=True, blank=True)
     operator = models.ForeignKey('user.User', verbose_name="操作人", on_delete=models.SET_NULL, related_name="area_operate",
                                  null=True, blank=True)
-    note = models.TextField(verbose_name="备注", default="", max_length=500)
+    note = models.TextField(verbose_name="备注", default="", max_length=500,  blank=True, null=True)
     active = models.BooleanField(verbose_name="是否启用", default=True, blank=True, null=True)
-    extra_info = models.TextField(verbose_name="额外信息(JSON数据)", default="")
+    extra_info = models.TextField(verbose_name="额外信息(JSON数据)", default="",  blank=True, null=True)
     created_at = models.DateTimeField(verbose_name="创建时间", auto_created=True, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_created=True, auto_now=True)
 
